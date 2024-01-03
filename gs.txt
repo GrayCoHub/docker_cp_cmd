@@ -1,0 +1,60 @@
+This docker project will demonstate several things.
+
+First, the dockerfile dictates pulling the official image of the headless R application from Docker Hub.  
+A directory is created in the container - named /app, to maintain the data created by the R script file.
+and then build a docker container that starts the R interpreter (R runtime environment).  The R interpreter 
+then executes the R script file (tester.R) from within new docker headless R app container.
+
+
+
+Overall objective: 
+
+While the Container is running, explore learning how to use the docker cp command.  The docker cp command will be used 
+to copy the csv file from the docker container to the Windows file system (this same working folder ). 
+
+
+Synopsis: dockerfile 
+
+Pulls the headless R-base programming application image from Docker Hub
+Creates a directory named /app within the docker container.
+Copies the script R file from the PC working folder into the container's new directory named, app
+Runs the R script file w/in the docker Container.  
+
+The simple R script file creates some random data, stores the data to a data frame, and then writes the 
+data frame to the disk using the basic R command, write.csv ( ). 
+
+
+Learned Goals:
+
+To learn how to use the docker cp command to retrieve persistant data from a docker container. the .csv file 
+that is created when the container runs the R script file.
+
+Code structure:
+{ docker cp your_container:/app/yourfile.csv /path/on/host/destination/yourfile.csv } 
+
+Actual: 
+C:\Gcode\docker_copy_examined> docker cp stupefied_feynman:/app/testFile.csv C:/Gcode/docker_copy_examined/testFile.csv 
+
+This works. Note: attempting to change the name of the existing copied file to a new name will result in an error.
+
+
+PS:
+
+The R script file in the working folder was renamed to gs-tester.R after the R interpreter image was built.  A new 
+container was created from the R image which generated the .csv file. 
+ 
+The docker cp command was run and the .csv file was copied from the running docker container into the host 
+working folder.  
+
+Next, the running R container was then deleted.  Attempts to copy the file from the deleted container failed.
+
+Next, the name of the original dockerfile was changed.  This was done to test whether changing the name of the 
+dockerfile would effect the existing docker image of the headless R app.  Changing the name had no impact.  
+Changing the name did not influene the existing R image because the existing image was built from the instructions 
+from the original dockerfile.  
+
+The new docker image creates the identical instance of itself (containers) based on the original dockerfile regardless 
+of changes to the dockerfile after the image is built.  Similarly, changes to the R script file have no effect on 
+the image / container. 
+
+
