@@ -1,8 +1,9 @@
-# A simple R scrip file to demonstrate how the dockerfile COPY cmd 
-#  works between the file system and docker
+# A simple R scrip file to create random data, create df, and write .csv 
+# Will demonstrate how the dockerfile cp cmd works between the 
+# container's file system, /app, and the host file system.
 
-# set seed for the random number generator
-set.seed(1231)
+# set seed - include/exclude this fct to explore if data changes 
+# set.seed(1231)     
 
 # Create a data frame with 12 random numbers
 x <- 1:12
@@ -14,4 +15,4 @@ write.csv(x_df, file = "testFile.csv", row.names = FALSE)
 df <- read.csv("testFile.csv", header = TRUE)
 
 # print the data frame
-df
+print(df)
